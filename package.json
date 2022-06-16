@@ -1,0 +1,28 @@
+{
+  "name": "guess-the-word",
+  "version": "1.0.0",
+  "description": "It is online multiplayer game where some latters of word is givven and you need to find out the word\r inspired from jklm.fun",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DodiyaVinesh/guess-the-word.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DodiyaVinesh/guess-the-word/issues"
+  },
+  "homepage": "https://github.com/DodiyaVinesh/guess-the-word#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "socket.io": "^4.5.1"
+  }
+}
