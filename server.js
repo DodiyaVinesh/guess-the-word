@@ -22,25 +22,24 @@ io.on("connection", (client) => {
     console.log("myon", config);
     let roomId = randomCode();
     await client.join(roomId);
-    rooms.push({ roomId, config });
+    rooms.push({ roomId, config, users: [client.id] });
     callback({ ...RESPONSES.JOINED_ROOM, data: { roomId } });
   });
 
   client.on("getRoomData", async (roomId, callback) => {
     console.log(client.rooms);
     const room = rooms.find((r) => r.roomId == roomId);
-    console.log(room);
     if (room) {
       await client.join(roomId);
+      room.users.push(client.id);
       callback({ ...RESPONSES.JOINED_ROOM, data: { room } });
     } else {
       callback({ ...RESPONSES.INVALID_ROOMID });
     }
   });
 
-  client.on("disconnect", (client) => {
-    console.log(io.sockets.length);
-    console.log("==========");
+  client.on("disconnect", () => {
+    rooms.map;
     console.log(client);
   });
 
