@@ -10,7 +10,7 @@ const JOINED_ROOM = {
 };
 
 const SUCCESS = {
-  type: "Success",
+  type: "success",
   msg: "Success",
   code: "SUCCESS",
 };

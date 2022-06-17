@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+/*  Section divider  */
 .section-divider {
   width: 100%;
   height: 2em;
@@ -20,4 +21,11 @@
 }
 .section-divider .text {
   padding: 0 1em;
+}
+
+/* center flexbox  */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

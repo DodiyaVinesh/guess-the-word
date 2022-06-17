@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
@@ -8,9 +9,25 @@ import { SocketService } from 'src/app/services/socket.service';
   styleUrls: ['./roompage.component.css'],
 })
 export class RoompageComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private socket: SocketService) {}
-
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private socket: SocketService,
+    private snackBar: MatSnackBar
+  ) {}
+  roomData: any;
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {});
+    this.route.params.subscribe((params) => {
+      this.socket
+        .getRoomData(params['id'])
+        .then((data) => {
+          this.roomData = data;
+          console.log(this.roomData);
+        })
+        .catch((err) => {
+          this.router.navigate(['/']);
+          this.snackBar.open(err);
+        });
+    });
   }
 }

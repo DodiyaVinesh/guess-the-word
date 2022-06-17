@@ -8,9 +8,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoompageComponent } from './pages/roompage/roompage.component';
+import { CreatePageComponent } from './pages/create-page/create-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NameDialogComponent } from './components/dialog/name.dialog.component';
+import { RoomIdDialogComponent } from './components/dialog/roomid.dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, RoompageComponent],
+  declarations: [
+    AppComponent,
+    HomepageComponent,
+    RoompageComponent,
+    CreatePageComponent,
+    HeaderComponent,
+    NameDialogComponent,
+    RoomIdDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

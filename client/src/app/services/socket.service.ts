@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { Response } from '../models/response.model';
+import { RoomConfig } from '../models/roomConfig.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,26 +14,30 @@ export class SocketService {
     this.socket = io.connect('http://localhost:3000');
   }
 
-  joinRoom(roomId: string) {
+  createRoom(config: RoomConfig) {
     return new Promise((resolve: (res: Response) => void, reject) => {
-      this.socket.emit('join', roomId, (res: Response) => {
+      this.socket.emit('create', config, (res: Response) => {
         resolve(res);
       });
-    });
-  }
-  createRoom() {
-    return new Promise((resolve: (res: Response) => void, reject) => {
-      this.socket.emit('create', (res: Response) => {
-        resolve(res);
-      });
+      setTimeout(() => {
+        reject('Time out, Something went wrong.');
+      }, 10000);
     });
   }
 
-  getRoomData() {
-    this.socket.emit('get-room-data', (res: Response) => {
-      if (res.code == 'SUCCESS') {
-        this.roomData = res.data.roomData;
-      }
+  getRoomData(roomId: string) {
+    return new Promise((resolve: (res: Response) => void, reject) => {
+      this.socket.emit('getRoomData', roomId, (res: Response) => {
+        if (res.code == 'JOINED_ROOM') {
+          this.roomData = res.data.room;
+          resolve(this.roomData);
+        } else {
+          reject(res.msg);
+        }
+      });
+      setTimeout(() => {
+        reject('Time out, Something went wrong.');
+      }, 10000);
     });
   }
 }

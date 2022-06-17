@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Have a room code?</h2>
+<div mat-dialog-content>
+  <form [formGroup]="roomForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter Code</mat-label>
+      <input
+        formControlName="code"
+        placeholder="xxx-xxx-xxx"
+        matInput
+        [(ngModel)]="data.roomId"
+        required
+      />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="data.roomId"
+    cdkFocusInitial
+    [disabled]="roomForm.invalid"
+  >
+    Join
+  </button>
+</div>

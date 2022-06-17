@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>What's your name?</h2>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter Name</mat-label>
+    <input matInput [(ngModel)]="data.name" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="data.name"
+    cdkFocusInitial
+  >
+    Join as "{{ data.name || "Anonymous" }}"
+  </button>
+</div>

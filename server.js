@@ -18,24 +18,30 @@ app.get("/", (req, res) => {
 rooms = [];
 
 io.on("connection", (client) => {
-  client.on("join", async (roomId, callback) => {
-    if (rooms.includes(roomId)) {
-      await client.join(roomId);
-      callback({ ...RESPONSES.JOINED_ROOM, data: { roomId } });
-    } else {
-      callback({ ...RESPONSES.INVALID_ROOMID, data: { roomId } });
-    }
-  });
-
-  client.on("create", async (callback) => {
+  client.on("create", async (config, callback) => {
+    console.log("myon", config);
     let roomId = randomCode();
     await client.join(roomId);
-    rooms.push(roomId);
+    rooms.push({ roomId, config });
     callback({ ...RESPONSES.JOINED_ROOM, data: { roomId } });
   });
 
-  client.on("get-room-data", (roomId, callback) => {
-    // to do get data
+  client.on("getRoomData", async (roomId, callback) => {
+    console.log(client.rooms);
+    const room = rooms.find((r) => r.roomId == roomId);
+    console.log(room);
+    if (room) {
+      await client.join(roomId);
+      callback({ ...RESPONSES.JOINED_ROOM, data: { room } });
+    } else {
+      callback({ ...RESPONSES.INVALID_ROOMID });
+    }
+  });
+
+  client.on("disconnect", (client) => {
+    console.log(io.sockets.length);
+    console.log("==========");
+    console.log(client);
   });
 
   console.log("a new user connected");

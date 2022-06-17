@@ -1,0 +1,24 @@
+<div class="create-room center">
+  <h2>Create Custom Room</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Life</mat-label>
+    <mat-select [(value)]="life">
+      <mat-option value="1"> 1 </mat-option>
+      <mat-option value="3"> 3 </mat-option>
+      <mat-option value="5"> 5 </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="fill">
+    <mat-label>Timer(second)</mat-label>
+    <mat-select [(value)]="timer">
+      <mat-option value="5"> 5 </mat-option>
+      <mat-option value="10"> 10</mat-option>
+      <mat-option value="15"> 15 </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <button mat-stroked-button color="primary" (click)="createRoom()">
+    Create
+  </button>
+</div>

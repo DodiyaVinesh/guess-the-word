@@ -1,0 +1,21 @@
+header {
+  height: 60px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
+}
+.brand {
+  color: white;
+  text-decoration: none;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding-left: 2vw;
+}
+.navigation {
+  padding-right: 1vw;
+}
+.nav-item {
+  margin: 0 1vw;
+}
