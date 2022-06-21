@@ -11,6 +11,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
@@ -27,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatSliderModule,
     MatSelectModule,
+    MatIconModule,
   ],
   exports: [
     MatButtonModule,
@@ -37,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatSliderModule,
     MatSelectModule,
+    MatIconModule,
   ],
 })
 export class MaterialModule {}

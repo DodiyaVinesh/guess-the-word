@@ -9,6 +9,6 @@ import { DialogData } from 'src/app/app.component';
 export class NameDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<NameDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { name: string }
+    @Inject(MAT_DIALOG_DATA) public data: { username: string }
   ) {}
 }

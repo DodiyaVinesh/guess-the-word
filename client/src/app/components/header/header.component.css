@@ -3,7 +3,7 @@ header {
   overflow: hidden;
   display: flex;
   justify-content: space-between;
-  background-color: black;
+  background-color: #252830;
   color: white;
 }
 .brand {

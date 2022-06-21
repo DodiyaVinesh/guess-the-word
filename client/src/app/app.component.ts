@@ -5,6 +5,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { SocketService } from './services/socket.service';
 
 export interface DialogData {
   name: string;
@@ -16,22 +17,24 @@ export interface DialogData {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  name!: string;
-  constructor(public dialog: MatDialog) {}
+  username!: string;
+  constructor(public dialog: MatDialog, private socket: SocketService) {}
   ngOnInit(): void {
-    this.name = localStorage.getItem('name') || '';
+    this.username = localStorage.getItem('username') || '';
 
-    if (this.name) {
+    if (this.username) {
+      this.socket.updateProfile({ username: this.username });
       return;
     }
     const dialogRef = this.dialog.open(NameDialogComponent, {
       width: '250px',
-      data: { name: this.name },
+      data: { username: this.username },
     });
 
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe((result) => {
-      localStorage.setItem('name', result);
+      this.socket.updateProfile({ username: result });
+      localStorage.setItem('username', result);
     });
   }
 }

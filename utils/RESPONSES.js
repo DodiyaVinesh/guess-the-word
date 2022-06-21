@@ -1,3 +1,8 @@
+const CREATED_ROOM = {
+  type: "success",
+  msg: "Successfully Created Room",
+  code: "CREATED_ROOM",
+};
 const INVALID_ROOMID = {
   type: "error",
   msg: "Invalid Room Id",
@@ -16,6 +21,7 @@ const SUCCESS = {
 };
 
 module.exports = {
+  CREATED_ROOM,
   INVALID_ROOMID,
   JOINED_ROOM,
   SUCCESS,

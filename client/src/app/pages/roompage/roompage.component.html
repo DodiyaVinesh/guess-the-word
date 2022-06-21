@@ -1,1 +1,73 @@
-<p>roompage works!</p>
+<div class="room-container center">
+  <div class="main">Main</div>
+  <div class="sidebar">
+    <div class="side-nav center">
+      <div
+        class="side-nav-item center"
+        [class.selected-side-nav]="selectedSidebar == 1"
+        (click)="selectedSidebar = 1"
+      >
+        <mat-icon> chat_bubble_outline</mat-icon>
+      </div>
+      <div
+        class="side-nav-item center"
+        [class.selected-side-nav]="selectedSidebar == 2"
+        (click)="selectedSidebar = 2"
+      >
+        <mat-icon>group</mat-icon>
+      </div>
+      <div
+        class="side-nav-item center"
+        [class.selected-side-nav]="selectedSidebar == 3"
+        (click)="selectedSidebar = 3"
+      >
+        <mat-icon>settings</mat-icon>
+      </div>
+    </div>
+
+    <div *ngIf="selectedSidebar == 1" class="chat">
+      <div class="chat-msgs" #msgs>
+        <div
+          *ngFor="let msg of messages"
+          class="msg"
+          [class.myMsg]="msg.isMine"
+        >
+          <div class="msg-head">
+            <div class="msg-sender">
+              {{ msg.sender.username }}
+            </div>
+            <div class="msg-timestamp">
+              {{ msg.timestamp | date: "shortTime" }}
+            </div>
+          </div>
+          <div class="msg-content">
+            {{ msg.content }}
+          </div>
+        </div>
+      </div>
+      <div class="temp"></div>
+
+      <form class="center" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+        <div class="msg-inp center">
+          <input formControlName="message" type="text" />
+        </div>
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a menu icon"
+        >
+          <mat-icon>send</mat-icon>
+        </button>
+      </form>
+    </div>
+
+    <div *ngIf="selectedSidebar == 2" class="users">
+      <div class="user" *ngFor="let user of roomData?.users">
+        <mat-icon>perm_identity</mat-icon>
+        <div class="username center">
+          {{ user.username }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
+/*  scrollbar  */
+::-webkit-scrollbar {
+  width: 0.6vw;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  outline: 1px solid slategrey;
+}
+
 /*  Section divider  */
 .section-divider {
   width: 100%;

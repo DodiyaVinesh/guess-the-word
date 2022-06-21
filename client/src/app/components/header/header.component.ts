@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (!result) return;
-      this.router.navigate(['/room/', result]);
+      this.router.navigate(['/room', result]);
     });
   }
 }
