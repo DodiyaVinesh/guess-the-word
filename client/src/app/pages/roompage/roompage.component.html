@@ -1,5 +1,20 @@
 <div class="room-container center">
-  <div class="main">Main</div>
+  <div class="game center">
+    <div class="main center">
+      <div class="players" #players>
+        <div class="player" *ngFor="let user of roomData?.users; let i = index">
+          <div class="player-name">{{ user.username }}</div>
+          <div class="player-score">{{ user.score }}</div>
+          <div class="player-score">{{ user.state }}</div>
+        </div>
+      </div>
+      <div class="word">__AB_</div>
+    </div>
+    <div class="controls center">
+      <input type="text" />
+    </div>
+    <!-- <div class="game-overlay">waiting for</div> -->
+  </div>
   <div class="sidebar">
     <div class="side-nav center">
       <div
@@ -7,7 +22,7 @@
         [class.selected-side-nav]="selectedSidebar == 1"
         (click)="selectedSidebar = 1"
       >
-        <mat-icon> chat_bubble_outline</mat-icon>
+        <mat-icon>chat_bubble_outline</mat-icon>
       </div>
       <div
         class="side-nav-item center"
@@ -63,7 +78,7 @@
 
     <div *ngIf="selectedSidebar == 2" class="users">
       <div class="user" *ngFor="let user of roomData?.users">
-        <mat-icon>perm_identity</mat-icon>
+        <mat-icon>{{ user.isOwner ? "person" : "perm_identity" }}</mat-icon>
         <div class="username center">
           {{ user.username }}
         </div>

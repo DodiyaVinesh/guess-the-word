@@ -22,6 +22,9 @@ export class SocketService {
     // listeners
     this.socket.on('userJoin', (user) => {
       let newData = this.roomData.getValue();
+      if (user.id == newData.owner.id) {
+        user.isOwner = true;
+      }
       newData.users.push(user);
       this.roomData.next(newData);
     });
@@ -42,6 +45,15 @@ export class SocketService {
     });
   }
 
+  clearSocket() {
+    if (this.socket) {
+      this.socket.off('userJoin');
+      this.socket.off('userLeave');
+      this.socket.off('message');
+      this.socket.disconnect();
+    }
+  }
+
   createRoom(config: RoomConfig) {
     return new Promise((resolve: (res: Response) => void, reject) => {
       this.socket.emit('create', config, (res: Response) => {
@@ -57,7 +69,14 @@ export class SocketService {
     this.socket.emit('getRoomData', { roomId }, (res: Response) => {
       if (res.code == 'JOINED_ROOM') {
         this.messages.next([]);
-        this.roomData.next(res.data.room);
+        let tempRoomData = res.data.room;
+        tempRoomData.users = tempRoomData.users.map((user: User) => {
+          if (user.id == tempRoomData.owner.id) {
+            return { isOwner: true, ...user };
+          }
+          return user;
+        });
+        this.roomData.next(tempRoomData);
       } else {
         this.snackBar.open(res.msg);
       }

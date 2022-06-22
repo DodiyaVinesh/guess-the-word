@@ -21,14 +21,19 @@ rooms = [];
 io.on("connection", (client) => {
   console.log("a new user connected");
   client.username = "Anonymous";
-
+  // console.log(io.sockets.sockets.get(client.id));
   client.on("updateProfile", ({ username }) => {
     client.username = username;
   });
 
   client.on("create", async (config, callback) => {
     let roomId = randomCode();
-    rooms.push({ roomId, config, users: [] });
+    rooms.push({
+      roomId,
+      config,
+      users: [],
+      owner: { id: client.id, username: client.username },
+    });
     callback({ ...RESPONSES.CREATED_ROOM, data: { roomId } });
   });
 
@@ -102,13 +107,19 @@ io.on("connection", (client) => {
     };
     io.to(client.currentRoom).emit("message", leaveMsg);
 
-    client.leave(client.currentRoom);
-    client.currentRoom = null;
+    // client.leave(client.currentRoom);
+    // client.currentRoom = null;
+    console.log(client.currentRoom);
+    // var clients = io.sockets.clients(client.currentRoom);
+    // var clients = io.sockets.clients(client.currentRoom);
+    var clients = io.of("/").adapter.rooms[client.currentRoom];
+    console.log(clients, io.of("/").adapter.rooms.get(client.currentRoom));
+    if (!clients) {
+      return console.log("undf");
+    }
+    // console.log(clients.length, "rem");
     rooms.filter((room) => {
-      room.users = room.users.filter((user) => user.id != client.id);
-      if (room.users.length == 0) {
-        return false;
-      }
+      console.log(room);
       return true;
     });
   }
