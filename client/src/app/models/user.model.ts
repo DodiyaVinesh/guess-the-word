@@ -1,5 +1,8 @@
 export interface User {
   id: string;
   username: string;
-  isOwner?: boolean;
+  currentRoom: string | null;
+  isOwner: boolean;
+  isReady: boolean;
+  score: number;
 }

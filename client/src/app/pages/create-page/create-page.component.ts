@@ -9,29 +9,16 @@ import { SocketService } from 'src/app/services/socket.service';
   styleUrls: ['./create-page.component.css'],
 })
 export class CreatePageComponent implements OnInit {
-  constructor(
-    private socket: SocketService,
-    private router: Router,
-    private snackBar: MatSnackBar
-  ) {}
+  constructor(private socket: SocketService) {}
 
-  life = '3';
+  round = '10';
   timer = '10';
 
   ngOnInit(): void {}
   createRoom() {
-    this.socket
-      .createRoom({
-        life: parseInt(this.life),
-        timer: parseInt(this.timer),
-      })
-      .then((res) => {
-        this.snackBar.open(res.msg);
-        this.router.navigate(['/room', res.data.roomId]);
-      })
-      .catch((err) => {
-        console.log(err);
-        this.snackBar.open('Something went wrong.');
-      });
+    this.socket.createRoom({
+      round: parseInt(this.round),
+      timer: parseInt(this.timer),
+    });
   }
 }

@@ -20,9 +20,23 @@ const SUCCESS = {
   code: "SUCCESS",
 };
 
+const RIGHT_ANSWER = {
+  type: "success",
+  msg: "Currect answer",
+  code: "RIGHT_ANSWER",
+};
+
+const WRONG_ANSWER = {
+  type: "error",
+  msg: "Wrong Answer",
+  code: "WRONG_ANSWER",
+};
+
 module.exports = {
   CREATED_ROOM,
   INVALID_ROOMID,
   JOINED_ROOM,
   SUCCESS,
+  RIGHT_ANSWER,
+  WRONG_ANSWER,
 };

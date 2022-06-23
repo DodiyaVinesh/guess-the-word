@@ -128,7 +128,9 @@
 
 /*  users in main box  */
 .main {
+  width: 100%;
   height: calc(100vh - 110px); /* 60 header 50 bottom input*/
+  font-size: max(1vw, 12px);
 }
 .game-overlay {
   width: 100%;
@@ -141,13 +143,40 @@
   position: relative;
 }
 .player {
+  transform: translate(-50%, -50%);
   position: absolute;
   display: flex;
-  width: 100px;
+  flex-direction: column;
+  width: 6em;
   background-color: #ccc;
 }
 .player-name {
   font-weight: bold;
+}
+.word,
+.ready-btn {
+  position: absolute;
+  width: 5em;
+  height: 5em;
+  background: #007a95;
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transform: translate(-50%, -50%);
+}
+.ready-btn {
+  cursor: pointer;
+}
+.ready-btn.ready {
+  background-color: #f4614a;
+}
+.ready-btn button {
+  pointer-events: none;
+  user-select: none;
+  background: transparent;
+  font-size: 1em;
+  border: none;
+  outline: none;
 }
 .controls {
   border-top: 1px solid #0005;
@@ -166,4 +195,37 @@
 }
 .controls input:focus {
   box-shadow: 0 0 1px 1px #000a;
+}
+
+/*  countdown  */
+.countdown {
+  user-select: none;
+  display: none;
+  position: absolute;
+  background-color: #000a;
+  color: white;
+  width: 100%;
+  height: calc(100vh - 110px);
+}
+.show {
+  display: flex;
+}
+.count {
+  display: none;
+  position: absolute;
+  font-size: 2em;
+}
+.count.visible {
+  display: block;
+  animation: countAnim 1s cubic-bezier(0.5, 0, 1, 0.5);
+}
+@keyframes countAnim {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(10);
+    opacity: 0.2;
+  }
 }
