@@ -5,7 +5,8 @@
         <div class="player" *ngFor="let user of roomData?.users; let i = index">
           <div class="player-name">{{ user.username }}</div>
           <div class="player-score">Score: {{ user.score }}</div>
-          <div class="player-score">{{ user.isReady }}</div>
+          <div class="player-ready" *ngIf="user.isReady">Ready</div>
+          <div class="player-not-ready" *ngIf="!user.isReady">Not Ready</div>
         </div>
       </div>
       <div class="game-center">
@@ -39,9 +40,17 @@
     >
       <input required formControlName="answer" type="text" />
     </form>
-    <!-- <div class="game-overlay">waiting for</div> -->
+    <!-- Sidebar toogle button -->
+    <div class="sidebar-toogle-btn center">
+      <div class="sidebar-toogle-icon center" (click)="toogleSidebar()">
+        <mat-icon>{{
+          isSidebarOpen ? "arrow_back_ios" : "arrow_forward_ios"
+        }}</mat-icon>
+      </div>
+    </div>
   </div>
-  <div class="sidebar">
+
+  <div class="sidebar" [class.hidden]="isSidebarOpen">
     <div class="side-nav center">
       <div
         class="side-nav-item center"

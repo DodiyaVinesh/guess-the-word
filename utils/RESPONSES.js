@@ -32,6 +32,12 @@ const WRONG_ANSWER = {
   code: "WRONG_ANSWER",
 };
 
+const ALREADY_ANSWERED = {
+  type: "error",
+  msg: "Already sent this answer",
+  code: "ALREADY_ANSWERED",
+};
+
 module.exports = {
   CREATED_ROOM,
   INVALID_ROOMID,
@@ -39,4 +45,5 @@ module.exports = {
   SUCCESS,
   RIGHT_ANSWER,
   WRONG_ANSWER,
+  ALREADY_ANSWERED,
 };

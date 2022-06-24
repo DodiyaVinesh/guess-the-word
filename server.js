@@ -30,7 +30,7 @@ io.on("connection", (client) => {
     currentRoom: null,
     score: 0,
     isReady: false,
-    isAnswered: false,
+    answers: [],
   };
 
   // CREATE BRAND NEW EMPTY ROOM
@@ -121,11 +121,18 @@ io.on("connection", (client) => {
   });
 
   client.on("answer", (answer, callback) => {
-    let room = rooms[users[client.id].currentRoom];
+    let user = users[client.id];
+    let room = rooms[user.currentRoom];
     if (!room) return console.log("answer without room");
+    console.log(answer, user.answers);
+    if (user.answers.includes(answer)) {
+      updateRoom();
+      return callback(RESPONSES.ALREADY_ANSWERED);
+    }
     let isValid = checkValidWord(room.currentWord, answer);
     if (isValid) {
-      users[client.id].score += 5;
+      user.score += 5;
+      user.answers.push(answer);
       callback(RESPONSES.RIGHT_ANSWER);
       updateRoom(room.id);
     } else {
@@ -192,6 +199,7 @@ io.on("connection", (client) => {
     rooms[roomId].users.forEach((userId) => {
       users[userId].isReady = false;
       users[userId].score = 0;
+      users[userId].answers = [];
     });
   }
 });

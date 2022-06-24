@@ -93,14 +93,20 @@ export class SocketService {
   }
 
   sendAnswer(answer: string) {
-    console.log(answer);
-    // if (!this.roomData.value?.isRunning) return;
-    this.socket.emit('answer', answer, (res: Response) => {
-      if (res.code == 'RIGHT_ANSWER') {
-        console.log('correct');
-      } else {
-        console.log('wrong');
+    return new Promise((resolve, reject) => {
+      if (!this.roomData.value?.isRunning) {
+        reject();
       }
+      this.socket.emit('answer', answer, (res: Response) => {
+        if (res.code == 'RIGHT_ANSWER') {
+          resolve(res);
+        } else {
+          if (res.code == 'ALREADY_ANSWERED') {
+            this.snackBar.open(res.msg);
+          }
+          reject(res);
+        }
+      });
     });
   }
 }

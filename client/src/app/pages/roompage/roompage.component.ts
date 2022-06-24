@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from 'src/app/models/message.model';
+import { Response } from 'src/app/models/response.model';
 import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
@@ -63,20 +64,7 @@ export class RoompageComponent implements OnInit, OnDestroy {
 
     this.socket.roomData.subscribe((roomData) => {
       this.roomData = roomData;
-      setTimeout(() => {
-        let players = this.playersEl.nativeElement.children;
-        var increase = (Math.PI * 2) / players.length;
-        var x = 0,
-          y = 0,
-          angle = 0;
-        for (var i = 0; i < players.length; i++) {
-          x = 100 * Math.cos(angle);
-          y = 100 * Math.sin(angle);
-          players[i].style.left = x + 'px';
-          players[i].style.top = y + 'px';
-          angle += increase;
-        }
-      }, 50);
+      this.circlePlayer();
     });
 
     this.socket.messages.subscribe((messages) => {
@@ -107,6 +95,36 @@ export class RoompageComponent implements OnInit, OnDestroy {
     this.socket.toogleReady();
   }
   sendAnswer() {
-    this.socket.sendAnswer(this.answerForm.value.answer);
+    this.socket
+      .sendAnswer(this.answerForm.value.answer)
+      .then(() => {
+        this.answerForm.reset();
+      })
+      .catch(() => {
+        this.answerForm.reset();
+      });
+  }
+
+  circlePlayer() {
+    setTimeout(() => {
+      let players = this.playersEl.nativeElement.children;
+      var increase = (Math.PI * 2) / players.length;
+      var x = 0,
+        y = 0,
+        angle = 0;
+      for (var i = 0; i < players.length; i++) {
+        x = 27 * Math.cos(angle);
+        let isXnagative = x < 0;
+        y = 27 * Math.sin(angle);
+        let isYnagative = y < 0;
+        players[i].style.left = isXnagative
+          ? 'max(' + x + 'vh,' + x + 'vw)'
+          : 'min(' + x + 'vh,' + x + 'vw)';
+        players[i].style.top = isYnagative
+          ? 'max(' + y + 'vh,' + y + 'vw)'
+          : 'min(' + y + 'vh,' + y + 'vw)';
+        angle += increase;
+      }
+    }, 50);
   }
 }

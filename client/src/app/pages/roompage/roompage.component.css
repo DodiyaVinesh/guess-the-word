@@ -4,12 +4,32 @@
   flex-direction: column;
 }
 .sidebar {
+  overflow: hidden;
   min-width: 300px;
   max-width: 450px;
   width: 30%;
-  background-color: #b6c8c9;
   height: calc(100vh - 60px);
   border-left: 1px solid #0003;
+  background-color: #b6c8c9;
+  transition: width 0.2s linear, min-width 0.2s linear;
+}
+.sidebar.hidden {
+  width: 0;
+  min-width: 0;
+  max-width: 0;
+}
+
+.sidebar-toogle-btn {
+  position: absolute;
+  right: 0;
+  height: calc(100vh - 60px);
+}
+.sidebar-toogle-icon {
+  cursor: pointer;
+  padding: 0.5em 0 0.5em 0.5em;
+  background: #ccc;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 .side-nav {
   background-color: #89969a;
@@ -37,7 +57,7 @@
 .chat .chat-msgs {
   height: calc(100% - 45px);
   min-height: calc(100% - 45px);
-  overflow-y: scroll;
+  overflow: hidden scroll;
 }
 
 /*  perticular message  */
@@ -130,7 +150,7 @@
 .main {
   width: 100%;
   height: calc(100vh - 110px); /* 60 header 50 bottom input*/
-  font-size: max(1vw, 12px);
+  font-size: max(min(2vw, 2vh), 12px);
 }
 .game-overlay {
   width: 100%;
@@ -148,17 +168,32 @@
   display: flex;
   flex-direction: column;
   width: 6em;
-  background-color: #ccc;
+  background: #79b5d9;
+  border-radius: 4px;
+  padding: 1em 0.6em;
+  pointer-events: none;
+}
+.player div {
+  padding: 0.2em 0;
 }
 .player-name {
   font-weight: bold;
 }
+.player-ready {
+  color: rgb(6, 95, 6);
+}
+.player-not-ready {
+  color: rgb(151, 12, 12);
+}
+
 .word,
 .ready-btn {
   position: absolute;
   width: 5em;
   height: 5em;
-  background: #007a95;
+  background: #000;
+  color: white;
+  border-radius: 4px;
   font-size: 1.4em;
   font-weight: bold;
   letter-spacing: 1px;
@@ -168,9 +203,10 @@
   cursor: pointer;
 }
 .ready-btn.ready {
-  background-color: #f4614a;
+  background-color: #000000;
 }
 .ready-btn button {
+  color: white;
   pointer-events: none;
   user-select: none;
   background: transparent;
