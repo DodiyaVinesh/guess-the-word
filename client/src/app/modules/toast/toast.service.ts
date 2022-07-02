@@ -8,6 +8,8 @@ export class ToastService {
   toastInner!: HTMLElement | null;
   toastContent!: HTMLElement | null;
   constructor() {
+    this.toastContent = document.createElement('div');
+
     this.toastOuter = document.createElement('div');
     this.toastOuter.style.position = 'fixed';
     this.toastOuter.style.bottom = '10px';
