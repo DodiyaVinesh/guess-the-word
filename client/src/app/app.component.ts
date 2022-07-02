@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NameDialogComponent } from './components/dialog/name.dialog.component';
 import {
   MatDialog,
@@ -6,6 +12,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { SocketService } from './services/socket.service';
+import { ToastService } from './modules/toast/toast.service';
 
 export interface DialogData {
   name: string;
@@ -18,10 +25,20 @@ export interface DialogData {
 })
 export class AppComponent implements OnInit {
   username!: string;
-  constructor(public dialog: MatDialog, private socket: SocketService) {}
-  ngOnInit(): void {
-    this.username = localStorage.getItem('username') || '';
+  constructor(
+    public dialog: MatDialog,
+    private socket: SocketService,
+    private toast: ToastService
+  ) {}
 
+  @ViewChild('inner') innerEl!: ElementRef;
+  @ViewChild('borderTop') borderTop!: ElementRef;
+  @ViewChild('borderBottom') borderBottom!: ElementRef;
+
+  ngOnInit(): void {
+    // this.toast.show('hello', 'success', 50000);
+
+    this.username = localStorage.getItem('username') || '';
     if (this.username) {
       this.socket.updateProfile({ username: this.username });
       return;
@@ -36,5 +53,13 @@ export class AppComponent implements OnInit {
       this.socket.updateProfile({ username: result });
       localStorage.setItem('username', result);
     });
+  }
+
+  doit() {
+    this.borderTop.nativeElement.style.transform = 'none';
+    this.borderBottom.nativeElement.style.transform = 'none';
+    setTimeout(() => {
+      this.innerEl.nativeElement.style.display = 'none';
+    }, 2000);
   }
 }

@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 rooms = {};
 users = {};
-
+online = [];
 io.on("connection", (client) => {
   console.log("new user connected");
   users[client.id] = {

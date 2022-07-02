@@ -1,2 +1,9 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<!-- <app-header></app-header> <router-outlet></router-outlet> -->
+<button (click)="doit()">hide/show</button>
+<div class="outer center">
+  <div class="inner center" #inner>
+    <div class="border border-top" #borderTop></div>
+    <div class="content center">Hello</div>
+    <div class="border border-bottom" #borderBottom></div>
+  </div>
+</div>
